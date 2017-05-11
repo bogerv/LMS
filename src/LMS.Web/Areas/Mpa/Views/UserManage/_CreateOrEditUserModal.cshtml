@@ -1,0 +1,56 @@
+﻿
+@using Abp.Extensions
+@using LMS.Web.Areas.Mpa.Models.Common.Modals
+@using LMS.Web.Areas.Mpa.Models.User
+
+    @model CreateOrEditUserModalViewModel
+
+    @* 初始化头部 *@
+    @Html.Partial("~/Areas/Mpa/Views/Common/Modals/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditUser") + ": " + Model.User.UserName) : L("CreateUser")))
+
+    <!--html代码区域-->
+    <div class="modal-body">
+        <form name="userInformationsForm" role="form" novalidate class="form-validation">
+            <input type="hidden" name="Id" value="@Model.User.Id" />
+            <div class="row>
+
+                <div hidden="hidden">
+                    @if (Model.IsEditMode)
+                    {
+                        <input type="hidden" name="Id" value="@Model.User.Id" />
+                    }
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label  ">
+                    <input class="maxlength-handler form-control @(Model.User.UserName.IsNullOrEmpty() ? "" : " edited")" type="text" name="UserName" value="@Model.User.UserName" required />
+                    <label>@L("UserName")   <span class="required"> * </span>	 	</label>
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label  ">
+                    <input class="maxlength-handler form-control @(Model.User.LocalName.IsNullOrEmpty() ? "" : " edited")" type="text" name="LocalName" value="@Model.User.LocalName" />
+                    <label>@L("LocalName") </label>
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label  ">
+                    <input class="maxlength-handler form-control @(Model.User.EmailAddress.IsNullOrEmpty() ? "" : " edited")" type="text" name="EmailAddress" value="@Model.User.EmailAddress" required />
+                    <label>@L("EmailAddress")   <span class="required"> * </span>	 	</label>
+                </div>
+
+                <div class="form-group form-md-line-input form-md-floating-label no-hint">
+                    <label>@L("LastLoginTime"):   </label>
+                    <div class="input-group  date form_datetime">
+                        <input type="text" name="LastLoginTime" value="@Model.User.LastLoginTime" readonly class="form-control">
+                        <span class="input-group-btn">
+                            <button class="btn default date-set" type="button">
+                                <i class="fa fa-calendar"></i>
+                            </button>
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+        </form>
+    </div>
+    @Html.Partial("~/Areas/Mpa/Views/Common/Modals/_ModalFooterWithSaveAndCancel.cshtml")
+
