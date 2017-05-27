@@ -1,0 +1,50 @@
+﻿{
+  "culture": "en-US",
+  "texts": {
+    // navigations
+    "CompetenceManagement": "Competence Management",
+    "MyCompetenceCenter": "My Competence Center",
+    "CompetencePack": "Competence Pack",
+    "LearningItem": "Learning Item",
+    "MyEmployeeCompetence": "My Employee Competence",
+    "MyMenteeCompetence": "My Mentee Competence",
+    "MenteeCompetencePack": "CP Qualification",
+    "MenteeLearningItem": "Learning Item Management",
+    "Statistics": "Statistics",
+    "PersonalCompetence": "Personal Competence",
+    "GroupCompetence": "Group Competence",
+    "ScoresAndRanking": "Scores And Ranking",
+
+    "Administration": "Administration",
+    "Users": "Users",
+    "Roles": "Roles",
+    "CreateNewUser": "Create New User",
+    "CreateNewRole": "Create New Role",
+    "UserName": "User Name",
+    "Surname": "Surname",
+    "EmailAddress": "Email Address",
+    "Password": "Password",
+    "IsActive": "IsActive",
+    "Job": "Job",
+    "Team": "Team",
+    "Helloworld": "Hello, world!",
+    "PermissionManagement": "Permission Management",
+    "RecentActivity": "Recent Activity",
+    "RememberMe": "Remember Me",
+    // Common
+    "Cancel": "Cancel",
+    "Save": "Save",
+    // Action
+    "Edit": "Edit",
+    "Delete": "Delete",
+    // Form
+    "Name": "Name",
+    // Login
+    "XX": "XX",
+    "LMS": "LMS",
+    "SignIn": "Sign In",
+    "ForgotPassword": "Forgot Password",
+    "RegisterNewAccount": "Register New Account",
+    "SignInToStartYourSession": "Sign in to start your session"
+  }
+}

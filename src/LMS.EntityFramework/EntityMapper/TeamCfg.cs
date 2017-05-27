@@ -22,9 +22,8 @@ namespace LMS.EntityMapper
                 .IsRequired()
                 .HasMaxLength(Team.MaxDisplayNameLength);
 
-            HasRequired(t => t.Parent)
-                .WithMany(t => t.Children)
-                .HasForeignKey(t => t.ParentId).WillCascadeOnDelete(false);
+            HasMany(t => t.Children)
+                .WithOptional();
         }
     }
 }

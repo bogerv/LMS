@@ -9,15 +9,16 @@ namespace LMS.Migrations.Seed.Host
 {
     public class InitialHostDbBuilder
     {
-        private readonly LMSDbContext _context;
+        private readonly LmsDbContext _context;
 
-        public InitialHostDbBuilder(LMSDbContext context)
+        public InitialHostDbBuilder(LmsDbContext context)
         {
             _context = context;
         }
 
         public void Create()
         {
+            new DefaultTeamCreator(_context).Create();
             new DefaultRoleAndUserCreator(_context).Create();
 
             _context.SaveChanges();

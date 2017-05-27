@@ -5,7 +5,7 @@ using Castle.Facilities.Logging;
 
 namespace LMS.Web
 {
-    public class MvcApplication : AbpWebApplication<LMSWebModule>
+    public class MvcApplication : AbpWebApplication<LmsWebModule>
     {
         protected override void Application_Start(object sender, EventArgs e)
         {

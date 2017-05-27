@@ -6,22 +6,18 @@ using LMS.Authorization.Roles;
 using LMS.Posts;
 using LMS.RecTeams;
 using LMS.Teams;
-using LMS.EntityMapper;
 using LMS.Authorization.Permissions;
-using System.Reflection;
-using System.Linq;
-using System;
-using System.Data.Entity.ModelConfiguration;
 
 namespace LMS.EntityFramework
 {
-    public class LMSDbContext : AbpDbContext
+    public class LmsDbContext : AbpDbContext
     {
         // Define an IDbSet for each Entity...
         public virtual IDbSet<User> Users { get; set; }
         public virtual IDbSet<Role> Roles { get; set; }
         public virtual IDbSet<Post> Posts { get; set; }
         public virtual IDbSet<PostLevel> PostLevels { get; set; }
+        public virtual IDbSet<UserLogin> UserLogins { get; set; }
         public virtual IDbSet<UserPost> UserPosts { get; set; }
         public virtual IDbSet<UserRole> UserRoles { get; set; }
         public virtual IDbSet<Permission> Permissions { get; set; }
@@ -34,7 +30,7 @@ namespace LMS.EntityFramework
          *   But it may cause problems when working Migrate.exe of EF. If you will apply migrations on command line, do not
          *   pass connection string name to base classes. ABP works either way.
          */
-        public LMSDbContext()
+        public LmsDbContext()
             : base("Default")
         {
 
@@ -44,20 +40,20 @@ namespace LMS.EntityFramework
          *   This constructor is used by ABP to pass connection string defined in LMSDataModule.PreInitialize.
          *   Notice that, actually you will not directly create an instance of LMSDbContext since ABP automatically handles it.
          */
-        public LMSDbContext(string nameOrConnectionString)
+        public LmsDbContext(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
 
         }
 
         //This constructor is used in tests
-        public LMSDbContext(DbConnection existingConnection)
+        public LmsDbContext(DbConnection existingConnection)
          : base(existingConnection, false)
         {
 
         }
 
-        public LMSDbContext(DbConnection existingConnection, bool contextOwnsConnection)
+        public LmsDbContext(DbConnection existingConnection, bool contextOwnsConnection)
          : base(existingConnection, contextOwnsConnection)
         {
 
@@ -71,7 +67,6 @@ namespace LMS.EntityFramework
 
             // 手动添加
             //modelBuilder.Configurations.Add(new UserCfg())
-            //    .Add(new UserPostCfg()).Add(new TeamCfg())
             //    .Add(new PostCfg()).Add(new RoleCfg()).Add(new PostLevelCfg()).Add(new UserRoleCfg());
 
             // 使用反射获取所有继承自 EntityTypeConfiguration<> 的所有类
@@ -86,7 +81,7 @@ namespace LMS.EntityFramework
             //    modelBuilder.Configurations.Add(configurationInstance);
             //}
             // 使用提供的方法
-            modelBuilder.Configurations.AddFromAssembly(typeof(LMSDbContext).Assembly);
+            modelBuilder.Configurations.AddFromAssembly(typeof(LmsDbContext).Assembly);
             base.OnModelCreating(modelBuilder);
         }
     }

@@ -6,15 +6,15 @@ using Abp.WebApi;
 
 namespace LMS
 {
-    [DependsOn(typeof(AbpWebApiModule), typeof(LMSApplicationModule))]
-    public class LMSWebApiModule : AbpModule
+    [DependsOn(typeof(AbpWebApiModule), typeof(LmsApplicationModule))]
+    public class LmsWebApiModule : AbpModule
     {
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
 
             Configuration.Modules.AbpWebApi().DynamicApiControllerBuilder
-                .ForAll<IApplicationService>(typeof(LMSApplicationModule).Assembly, "app")
+                .ForAll<IApplicationService>(typeof(LmsApplicationModule).Assembly, "app")
                 .Build();
         }
     }

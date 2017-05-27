@@ -1,6 +1,6 @@
-﻿using LMS.Authorization.Roles;
-using LMS.Authorization.Users;
+﻿using LMS.Authorization.Users;
 using System.Data.Entity.ModelConfiguration;
+using LMS.EntityFramework;
 
 namespace LMS.EntityMapper
 {
@@ -10,11 +10,11 @@ namespace LMS.EntityMapper
     public class UserCfg : EntityTypeConfiguration<User>
     {
         /// <summary>
-        ///  构造方法[默认链接字符串< see cref = "LMSDbContext" /> ]
+        ///  构造方法[默认链接字符串< see cref = "LmsDbContext" /> ]
         /// </summary>
         public UserCfg()
         {
-            ToTable("User", LMSConsts.SchemaName.Basic);
+            ToTable("User", LmsConsts.SchemaName.Basic);
 
             // UserName
             Property(a => a.UserName)
@@ -28,7 +28,7 @@ namespace LMS.EntityMapper
 
             // Surname
             Property(a => a.Surname)
-                .IsRequired()
+                .IsOptional()
                 .HasMaxLength(User.MaxUserNameLength);
 
             // Password
@@ -45,17 +45,23 @@ namespace LMS.EntityMapper
             Property(a => a.TeamId)
                 .IsRequired();
 
-            HasRequired(u => u.DeleterUser)
-                .WithMany()
-                .HasForeignKey(u => u.DeleterUserId);
+            Property(u => u.CreatorUserId).IsOptional();
 
-            HasRequired(u => u.CreatorUser)
-                .WithMany()
-                .HasForeignKey(u => u.CreatorUserId);
+            Property(u => u.LastModifierUserId).IsOptional();
 
-            HasRequired(u => u.LastModifierUser)
-                .WithMany()
-                .HasForeignKey(u => u.LastModifierUserId);
+            Property(u => u.DeleterUserId).IsOptional();
+
+            //HasOptional(u => u.DeleterUser)
+            //    .WithMany()
+            //    .HasForeignKey(u => u.DeleterUserId);
+
+            //HasOptional(u => u.CreatorUser)
+            //    .WithMany()
+            //    .HasForeignKey(u => u.CreatorUserId);
+
+            //HasOptional(u => u.LastModifierUser)
+            //    .WithMany()
+            //    .HasForeignKey(u => u.LastModifierUserId);
 
             HasMany(u => u.RecTeams)
                 .WithOptional()
@@ -80,12 +86,12 @@ namespace LMS.EntityMapper
             //    m.ToTable("UserRole");
             //});
 
-            //// DeleterUser - 关系映射
-            //HasRequired(a => a.DeleterUser).WithMany().HasForeignKey(c => c.DeleterUserId).WillCascadeOnDelete(true);
-            //// CreatorUser - 关系映射
-            //HasRequired(a => a.CreatorUser).WithMany().HasForeignKey(c => c.CreatorUserId).WillCascadeOnDelete(true);
-            //// LastModifierUser - 关系映射
-            //HasRequired(a => a.LastModifierUser).WithMany().HasForeignKey(c => c.LastModifierUserId).WillCascadeOnDelete(true);
+            // DeleterUser - 关系映射
+            HasOptional(a => a.DeleterUser).WithMany().HasForeignKey(c => c.DeleterUserId).WillCascadeOnDelete(false);
+            // CreatorUser - 关系映射
+            HasOptional(a => a.CreatorUser).WithMany().HasForeignKey(c => c.CreatorUserId).WillCascadeOnDelete(false);
+            // LastModifierUser - 关系映射
+            HasOptional(a => a.LastModifierUser).WithMany().HasForeignKey(c => c.LastModifierUserId).WillCascadeOnDelete(false);
         }
     }
 }

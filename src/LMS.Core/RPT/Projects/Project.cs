@@ -1,11 +1,6 @@
-﻿using Abp.Domain.Entities;
-using LMS.Authorization.Users;
+﻿using LMS.Authorization.Users;
 using LMS.Base;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace LMS.RPT
 {

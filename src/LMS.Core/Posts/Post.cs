@@ -2,7 +2,6 @@
 using LMS.Teams;
 using LMS.Authorization.Users;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using LMS.RecTeams;
 using System;
 
@@ -33,14 +32,9 @@ namespace LMS.Posts
         #region 导航属性
         public virtual Team Team { get; set; }
         public virtual PostLevel PostLevel { get; set; }
-        public virtual ICollection<UserPost> UserPosts { get; set; }
-        public virtual ICollection<RecTeam> RecTeams { get; set; }
-        #endregion
+        public virtual ICollection<UserPost> UserPosts { get; set; } = new HashSet<UserPost>();
+        public virtual ICollection<RecTeam> RecTeams { get; set; } = new HashSet<RecTeam>();
 
-        public Post()
-        {
-            UserPosts = new HashSet<UserPost>();
-            RecTeams = new HashSet<RecTeam>();
-        }
+        #endregion
     }
 }

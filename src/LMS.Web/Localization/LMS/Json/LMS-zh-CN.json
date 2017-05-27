@@ -1,0 +1,52 @@
+{
+  "culture": "zh-CN",
+  "texts": {
+    // navigations
+    "CompetenceManagement": "能力",
+    "MyCompetenceCenter": "我的技能",
+    "CompetencePack": "能力包",
+    "LearningItem": "学习项",
+    "MyEmployeeCompetence": "我的员工技能",
+    "MyMenteeCompetence": "我的学员技能",
+    "MenteeCompetencePack": "能力包考核",
+    "MenteeLearningItem": "学习项管理",
+    "Statistics": "统计",
+    "PersonalCompetence": "个人能力",
+    "GroupCompetence": "团队能力",
+    "ScoresAndRanking": "分数和排序",
+
+    "Administration": "管理",
+    "Users": "用户管理",
+    "Roles": "角色管理",
+    "CreateNewUser": "新建用户",
+    "CreateNewRole": "新建角色",
+    "UserName": "登录用户名",
+    "Surname": "别名",
+    "EmailAddress": "邮件地址",
+    "Password": "密码",
+    "IsActive": "是否激活",
+    "Job": "工作管理",
+    "Team": "团队管理",
+    "Helloworld": "你好, 世界!",
+    "PermissionManagement": "权限管理",
+    "RecentActivity": "近期活动",
+    "RememberMe": "记住我",
+    "RoleManagement": "角色管理",
+    "UserManagement": "用户管理",
+    // Common
+    "Cancel": "取消",
+    "Save": "保存",
+    // Action
+    "Edit": "编辑",
+    "Delete": "删除",
+    // Form
+    "Name": "名字",
+    // Login
+    "XX": "XX",
+    "LMS": "团队管理系统",
+    "SignIn": "登录",
+    "ForgotPassword": "忘记密码",
+    "RegisterNewAccount": "注册新账户",
+    "SignInToStartYourSession": "登录并开始会话"
+  }
+}

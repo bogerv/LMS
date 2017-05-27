@@ -2,16 +2,16 @@
 
 namespace LMS.Web.Views
 {
-    public abstract class LMSWebViewPageBase : LMSWebViewPageBase<dynamic>
+    public abstract class LmsWebViewPageBase : LmsWebViewPageBase<dynamic>
     {
 
     }
 
-    public abstract class LMSWebViewPageBase<TModel> : AbpWebViewPage<TModel>
+    public abstract class LmsWebViewPageBase<TModel> : AbpWebViewPage<TModel>
     {
-        protected LMSWebViewPageBase()
+        protected LmsWebViewPageBase()
         {
-            LocalizationSourceName = LMSConsts.LocalizationSourceName;
+            LocalizationSourceName = LmsConsts.LocalizationSourceName;
         }
     }
 }

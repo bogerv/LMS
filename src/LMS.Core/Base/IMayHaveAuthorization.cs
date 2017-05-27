@@ -1,10 +1,13 @@
 ﻿using Abp.Domain.Entities;
 using System;
 
-namespace LMS.Entities
+namespace LMS.Base
 {
     public interface IAuthorizationAudited
     {
+        /// <summary>
+        /// 授权人
+        /// </summary>
         long? AuthenticaterUserId { get; set; }
     }
 
@@ -15,7 +18,7 @@ namespace LMS.Entities
         DateTime? AuthorizationTime { get; set; }
     }
     
-    public interface IAuthorizationAudited<TUser> : IHasAuthorizationTime where TUser : IEntity<long>
+    public interface IAuthorizationAudited<TUser> : IHasAuthorizationTime, IAuthorizationAudited where TUser : IEntity<long>
     {
         /// <summary>授权人
         /// </summary>

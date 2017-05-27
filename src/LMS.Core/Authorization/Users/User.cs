@@ -1,22 +1,15 @@
 ﻿using System;
-using Microsoft.AspNet.Identity;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using LMS.Base;
-using LMS.Posts;
 using LMS.Teams;
 using Abp.Domain.Entities;
 using LMS.RecTeams;
 using Abp.Domain.Entities.Auditing;
-using LMS.Authorization.Roles;
 using LMS.Authorization.Permissions;
-using System.Security.Claims;
-using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace LMS.Authorization.Users
 {
-    public class User : Entity<Guid>, IUser<Guid>, IPassivable, IHasCreationTime, IHasModificationTime, IHasDeletionTime, ISoftDelete, IMayHaveTenant
+    public class User : Entity<Guid>, IUser<Guid>, IPassivable, IHasCreationTime, IHasModificationTime, IHasDeletionTime
     {
         public const string DefaultPassword = "000000";
         public const int MaxUserNameLength = 64;
@@ -69,31 +62,23 @@ namespace LMS.Authorization.Users
         public DateTime? LastModificationTime { get; set; }
         public DateTime? DeletionTime { get; set; }
         public bool IsDeleted { get; set; } 
-        public int? TenantId { get; set; }
         #endregion
 
         #region 导航属性
-        public virtual Guid CreatorUserId { get; set; }
-        public virtual Guid DeleterUserId { get; set; }
-        public virtual Guid LastModifierUserId { get; set; }
+        public virtual Guid? CreatorUserId { get; set; }
+        public virtual Guid? DeleterUserId { get; set; }
+        public virtual Guid? LastModifierUserId { get; set; }
         public virtual User DeleterUser { get; set; }
         public virtual User CreatorUser { get; set; }
         public virtual User LastModifierUser { get; set; }
         public virtual Guid TeamId { get; set; }
         public virtual Team Team { get; set; }
 
-        public virtual ICollection<UserPost> UserPosts { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; }
-        public virtual ICollection<RecTeam> RecTeams { get; set; }
-        public virtual ICollection<PermissionSetting> PermissionSettings { get; set; }
-        #endregion
+        public virtual ICollection<UserPost> UserPosts { get; set; } = new HashSet<UserPost>();
+        public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
+        public virtual ICollection<RecTeam> RecTeams { get; set; } = new HashSet<RecTeam>();
+        public virtual ICollection<PermissionSetting> PermissionSettings { get; set; } = new HashSet<PermissionSetting>();
 
-        public User()
-        {
-            UserPosts = new HashSet<UserPost>();
-            UserRoles = new HashSet<UserRole>();
-            RecTeams = new HashSet<RecTeam>();
-            PermissionSettings = new HashSet<PermissionSetting>();
-        }
+        #endregion
     }
 }

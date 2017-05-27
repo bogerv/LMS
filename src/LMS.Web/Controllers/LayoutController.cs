@@ -7,7 +7,7 @@ using LMS.Web.Models.Layout;
 
 namespace LMS.Web.Controllers
 {
-    public class LayoutController : LMSControllerBase
+    public class LayoutController : LmsControllerBase
     {
         private readonly IUserNavigationManager _userNavigationManager;
         private readonly ILanguageManager _languageManager;

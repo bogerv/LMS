@@ -1,15 +1,12 @@
 ﻿using LMS.Base;
 using LMS.Authorization.Users;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using Abp.Domain.Entities;
-using System.ComponentModel.DataAnnotations;
 using LMS.Posts;
 using System;
 
 namespace LMS.Teams
 {
-    public class Team : EntityBase
+    public class Team : FullAuditedEntity<Guid>
     {
         /// <summary>
         /// 最大显示名长度
@@ -45,18 +42,15 @@ namespace LMS.Teams
         /// 父级Id
         /// </summary>
         public Guid ParentId { get; set; }
-        public virtual Team Parent { get; set; }
 
-        public virtual ICollection<Team> Children { get; set; }
-        public virtual ICollection<User> Users { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
+        public virtual ICollection<Team> Children { get; set; } = new HashSet<Team>();
+        public virtual ICollection<User> Users { get; set; } = new HashSet<User>();
+        public virtual ICollection<Post> Posts { get; set; } = new HashSet<Post>();
+
         #endregion
 
         public Team()
         {
-            Children = new HashSet<Team>();
-            Users = new HashSet<User>();
-            Posts = new HashSet<Post>();
         }
     }
 }

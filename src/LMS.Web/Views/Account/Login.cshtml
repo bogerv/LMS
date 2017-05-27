@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Log in</title>
+    <title>LMS | Log in</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.6 -->
@@ -28,39 +28,41 @@
     <![endif]-->
 </head>
 <body class="hold-transition login-page">
+    @*cadetblue*@
+    <canvas id="canvas" style="position: fixed;background-color:#33B5E5;"></canvas>
     <div class="login-box" style="position: fixed;left:0;right:0;">
         <div class="login-logo">
-        <a href="@Url.Action("Index","Home")"><b>Admin</b>LTE</a>
+        <a href="@Url.Action("Index","Home")"><b>@L("XX")</b>@L("LMS")</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
-            <form action="@Url.Action("Login")?returnUrl=@ViewBag.ReturnRul" method="post">
+            <p class="login-box-msg">@L("SignInToStartYourSession")</p>
+            <form action="@Url.Action("Login")" method="post">
                 @Html.AntiForgeryToken()
                 <div class="form-group has-feedback">
-                    <input class="form-control" placeholder="Email" name="UsernameOrEmailAddress" value="@Model.UserNameOrEmailAddress">
+                    <input class="form-control" placeholder="@L("UserName")" name="UserNameOrEmailAddress" value="@Model.UserNameOrEmailAddress">
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
                 </div>
                 <div class="form-group has-feedback">
-                    <input type="password" class="form-control" placeholder="Password" name="Password">
+                    <input type="password" class="form-control" placeholder="@L("Password")" name="Password">
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="row">
                     <div class="col-xs-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox" name="RememberMe"> Remember Me
+                                <input type="checkbox" name="RememberMe">@L("RememberMe")
                             </label>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-xs-4">
-                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block btn-flat" style="background: #33B5E5;border-color:#33B5E5;">@L("SignIn")</button>
                     </div>
                     <!-- /.col -->
                 </div>
             </form>
-            <div class="social-auth-links text-center">
+            @*<div class="social-auth-links text-center">
                 <p>- OR -</p>
                 <a href="#" class="btn btn-block btn-social btn-facebook btn-flat">
                     <i class="fa fa-facebook"></i> Sign in using
@@ -70,10 +72,10 @@
                     <i class="fa fa-google-plus"></i> Sign in using
                     Google+
                 </a>
-            </div>
+            </div>*@
             <!-- /.social-auth-links -->
-            <a href="#">I forgot my password</a><br>
-            <a href="register.html" class="text-center">Register a new membership</a>
+            <a href="#">@L("ForgotPassword")</a><br>
+            <a href="@Url.Action("Register")" class="text-center">@L("RegisterNewAccount")</a>
         </div>
         <!-- /.login-box-body -->
     </div>
@@ -85,6 +87,7 @@
     <!-- iCheck -->
     <script src="~/AdminLTE/plugins/iCheck/icheck.min.js"></script>
     <script src="~/AdminLTE/plugins/three.min.js"></script>
+    <script src="~/AdminLTE/canvas/line-canvas.js"></script>
     <script>
         $(function () {
             $('input').iCheck({
@@ -93,158 +96,6 @@
                 increaseArea: '20%' // optional
             });
         });
-        var SEPARATION = 100, AMOUNTX = 50, AMOUNTY = 50;
-
-        var container;
-        var camera, scene, renderer;
-
-        var particles, particle, count = 0;
-
-        var mouseX = 0, mouseY = 0;
-
-        var windowHalfX = window.innerWidth / 2;
-        var windowHalfY = window.innerHeight / 2;
-
-        init();
-        animate();
-
-        function init() {
-
-            container = document.getElementsByClassName('hold-transition login-page')[0];
-            //document.body.appendChild(container);
-
-            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-            camera.position.z = 1000;
-
-            scene = new THREE.Scene();
-
-            particles = new Array();
-
-            var PI2 = Math.PI * 2;
-            var material = new THREE.ParticleCanvasMaterial({
-
-                color: 0xffffff,
-                program: function (context) {
-
-                    context.beginPath();
-                    context.arc(0, 0, 1, 0, PI2, true);
-                    context.fill();
-
-                }
-
-            });
-
-            var i = 0;
-
-            for (var ix = 0; ix < AMOUNTX; ix++) {
-
-                for (var iy = 0; iy < AMOUNTY; iy++) {
-
-                    particle = particles[i++] = new THREE.Particle(material);
-                    particle.position.x = ix * SEPARATION - ((AMOUNTX * SEPARATION) / 2);
-                    particle.position.z = iy * SEPARATION - ((AMOUNTY * SEPARATION) / 2);
-                    scene.add(particle);
-
-                }
-
-            }
-
-            renderer = new THREE.CanvasRenderer();
-            renderer.setSize(window.innerWidth, window.innerHeight - 10);
-            container.appendChild(renderer.domElement);
-
-            document.addEventListener('mousemove', onDocumentMouseMove, false);
-            document.addEventListener('touchstart', onDocumentTouchStart, false);
-            document.addEventListener('touchmove', onDocumentTouchMove, false);
-
-            //
-
-            window.addEventListener('resize', onWindowResize, false);
-
-        }
-
-        function onWindowResize() {
-
-            windowHalfX = window.innerWidth / 2;
-            windowHalfY = window.innerHeight / 2;
-
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-
-            renderer.setSize(window.innerWidth, window.innerHeight - 10);
-
-        }
-
-        //
-
-        function onDocumentMouseMove(event) {
-
-            mouseX = event.clientX - windowHalfX;
-            mouseY = event.clientY - windowHalfY;
-
-        }
-
-        function onDocumentTouchStart(event) {
-
-            if (event.touches.length === 1) {
-
-                event.preventDefault();
-
-                mouseX = event.touches[0].pageX - windowHalfX;
-                mouseY = event.touches[0].pageY - windowHalfY;
-
-            }
-
-        }
-
-        function onDocumentTouchMove(event) {
-
-            if (event.touches.length === 1) {
-
-                event.preventDefault();
-
-                mouseX = event.touches[0].pageX - windowHalfX;
-                mouseY = event.touches[0].pageY - windowHalfY;
-
-            }
-
-        }
-
-        //
-
-        function animate() {
-
-            requestAnimationFrame(animate);
-
-            render();
-
-        }
-
-        function render() {
-
-            camera.position.x += (mouseX - camera.position.x) * .05;
-            camera.position.y += (- mouseY - camera.position.y) * .05;
-            camera.lookAt(scene.position);
-
-            var i = 0;
-
-            for (var ix = 0; ix < AMOUNTX; ix++) {
-
-                for (var iy = 0; iy < AMOUNTY; iy++) {
-
-                    particle = particles[i++];
-                    particle.position.y = (Math.sin((ix + count) * 0.3) * 50) + (Math.sin((iy + count) * 0.5) * 50);
-                    particle.scale.x = particle.scale.y = (Math.sin((ix + count) * 0.3) + 1) * 2 + (Math.sin((iy + count) * 0.5) + 1) * 2;
-
-                }
-
-            }
-
-            renderer.render(scene, camera);
-
-            count += 0.1;
-
-        }
     </script>
 </body>
 </html>

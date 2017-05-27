@@ -5,11 +5,11 @@ namespace LMS
     /// <summary>
     /// Derive your application services from this class.
     /// </summary>
-    public abstract class LMSAppServiceBase : ApplicationService
+    public abstract class LmsAppServiceBase : ApplicationService
     {
-        protected LMSAppServiceBase()
+        protected LmsAppServiceBase()
         {
-            LocalizationSourceName = LMSConsts.LocalizationSourceName;
+            LocalizationSourceName = LmsConsts.LocalizationSourceName;
         }
     }
 }

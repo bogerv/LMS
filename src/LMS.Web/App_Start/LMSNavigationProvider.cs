@@ -10,7 +10,7 @@ namespace LMS.Web
     /// When you add menu items here, they are automatically appear in angular application.
     /// See Views/Layout/_TopMenu.cshtml file to know how to render menu.
     /// </summary>
-    public class LMSNavigationProvider : NavigationProvider
+    public class LmsNavigationProvider : NavigationProvider
     {
         public override void SetNavigation(INavigationProviderContext context)
         {
@@ -18,14 +18,14 @@ namespace LMS.Web
                 .AddItem(
                     new MenuItemDefinition(
                         "Home",
-                        new LocalizableString("HomePage", LMSConsts.LocalizationSourceName),
+                        new LocalizableString("HomePage", LmsConsts.LocalizationSourceName),
                         url: "",
                         icon: "fa fa-home"
                         )
                 ).AddItem(
                     new MenuItemDefinition(
                         "About",
-                        new LocalizableString("About", LMSConsts.LocalizationSourceName),
+                        new LocalizableString("About", LmsConsts.LocalizationSourceName),
                         url: "About",
                         icon: "fa fa-info"
                         )
@@ -34,7 +34,7 @@ namespace LMS.Web
 
         private static ILocalizableString L(string name)
         {
-            return new LocalizableString(name, LMSConsts.LocalizationSourceName);
+            return new LocalizableString(name, LmsConsts.LocalizationSourceName);
         }
     }
 }

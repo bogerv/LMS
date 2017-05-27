@@ -2,9 +2,9 @@
 {
     /// <summary>
     /// 定义系统的权限名称的字符串常量。
-    /// <see cref="UserAppAuthorizationProvider"/>中对权限的定义.
+    /// <see cref="UserAuthorizationProvider"/>中对权限的定义.
     /// </summary>
-    public static class UserAppPermissions
+    public static class UserPermissions
     {
         /// <summary>
         /// 用户管理权限

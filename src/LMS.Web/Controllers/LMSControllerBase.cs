@@ -5,11 +5,11 @@ namespace LMS.Web.Controllers
     /// <summary>
     /// Derive all Controllers from this class.
     /// </summary>
-    public abstract class LMSControllerBase : AbpController
+    public abstract class LmsControllerBase : AbpController
     {
-        protected LMSControllerBase()
+        protected LmsControllerBase()
         {
-            LocalizationSourceName = LMSConsts.LocalizationSourceName;
+            LocalizationSourceName = LmsConsts.LocalizationSourceName;
         }
     }
 }

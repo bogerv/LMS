@@ -1,10 +1,7 @@
 ﻿using Abp.Application.Navigation;
 using Abp.Localization;
+using LMS.Authorization;
 using LMS.Authorization.Users.Authorization;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace LMS.Web.Areas.Mpa.Navigation
 {
@@ -16,20 +13,54 @@ namespace LMS.Web.Areas.Mpa.Navigation
         {
             var menu = context.Manager.Menus[MenuName] = new MenuDefinition(MenuName, new FixedLocalizableString("Main Menu"));
 
-            var user = new MenuItemDefinition(
-                UserAppPermissions.User,
-                L("User"),
-                url: "Mpa/UserManage",
-                icon: "icon-grid"
-            //,requiredPermissionName: UserAppPermissions.User
+            var administration = new MenuItemDefinition(
+                PageNames.Common.Administration,
+                L(PageNames.Common.Administration),
+                "fa fa-cogs",
+                requiredPermissionName: LmsPermissions.Pages_Administration
             );
-            menu
-                .AddItem(user);
+
+            var user = new MenuItemDefinition(
+                PageNames.Common.Users,
+                L(PageNames.Common.Users),
+                "fa fa-users",
+                NavigationUrls.Users,
+                requiredPermissionName: LmsPermissions.Pages_Administration_Users
+            );
+
+            var role = new MenuItemDefinition(
+                PageNames.Common.Roles,
+                L(PageNames.Common.Roles),
+                "fa fa-users",
+                NavigationUrls.Roles,
+                requiredPermissionName: LmsPermissions.Pages_Administration_Roles
+            );
+            var job = new MenuItemDefinition(
+                PageNames.Common.Jobs,
+                L(PageNames.Common.Jobs),
+                "fa fa-support",
+                NavigationUrls.Jobs
+            );
+
+            var team = new MenuItemDefinition(
+                PageNames.Common.Teams,
+                L(PageNames.Common.Teams),
+                "fa fa-user-circle",
+                NavigationUrls.Teams
+            );
+
+            menu.AddItem(
+                    administration.AddItem(user).AddItem(role)
+               ).AddItem(
+                    job
+               ).AddItem(
+                    team
+               );
         }
 
         protected static ILocalizableString L(string name)
         {
-            return new LocalizableString(name, LMSConsts.LocalizationSourceName);
+            return new LocalizableString(name, LmsConsts.LocalizationSourceName);
         }
     }
 }

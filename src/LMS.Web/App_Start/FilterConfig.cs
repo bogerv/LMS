@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Abp.Authorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace LMS.Web
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            //filters.Add(new AuthorizeAttribute());
+            //filters.Add(new AbpAuthorizeAttribute());
         }
     }
 }

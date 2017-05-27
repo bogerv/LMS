@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LMS.Web</RootNamespace>
     <AssemblyName>LMS.Web</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
@@ -46,41 +46,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Abp, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Abp.1.5.1\lib\net452\Abp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Abp, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Abp.2.0.2\lib\net46\Abp.dll</HintPath>
     </Reference>
-    <Reference Include="Abp.AutoMapper, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Abp.AutoMapper.1.5.1\lib\net452\Abp.AutoMapper.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Abp.AutoMapper, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Abp.AutoMapper.2.0.2\lib\net46\Abp.AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="Abp.Castle.Log4Net, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Abp.Castle.Log4Net.1.5.1\lib\net452\Abp.Castle.Log4Net.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Abp.Castle.Log4Net, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Abp.Castle.Log4Net.2.0.2\lib\net46\Abp.Castle.Log4Net.dll</HintPath>
     </Reference>
-    <Reference Include="Abp.Web, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Abp.Web.1.5.1\lib\net452\Abp.Web.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Abp.Web, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Abp.Web.2.0.2\lib\net46\Abp.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Abp.Web.Api, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Abp.Web.Api.1.5.1\lib\net452\Abp.Web.Api.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Abp.Web.Api, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Abp.Web.Api.2.0.2\lib\net46\Abp.Web.Api.dll</HintPath>
     </Reference>
-    <Reference Include="Abp.Web.Common, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Abp.Web.Common.1.5.1\lib\net452\Abp.Web.Common.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Abp.Web.Common, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Abp.Web.Common.2.0.2\lib\net46\Abp.Web.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Abp.Web.Mvc, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Abp.Web.Mvc.1.5.1\lib\net452\Abp.Web.Mvc.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Abp.Web.Mvc, Version=2.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Abp.Web.Mvc.2.0.2\lib\net46\Abp.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="AutoMapper, Version=5.2.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.5.2.0\lib\net45\AutoMapper.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -118,8 +110,7 @@
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Bin\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
@@ -156,9 +147,8 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Nito.AsyncEx, Version=4.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Nito.AsyncEx.4.0.1\lib\net45\Nito.AsyncEx.dll</HintPath>
@@ -184,6 +174,9 @@
     <Reference Include="System.Linq.Dynamic, Version=1.0.6132.35681, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Linq.Dynamic.1.0.7\lib\net40\System.Linq.Dynamic.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Linq.Dynamic.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=0f07ec44de6ac832, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Linq.Dynamic.Core.1.0.6.13\lib\net45\System.Linq.Dynamic.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
@@ -268,6 +261,8 @@
     <Content Include="Abp\Framework\styles\abp.mixings.css" />
     <Content Include="Abp\Framework\styles\abp.mixings.min.css" />
     <Content Include="Abp\Framework\styles\utils\ie10fix.css" />
+    <Content Include="AdminLTE\canvas\ball-canvas.js" />
+    <Content Include="AdminLTE\canvas\line-canvas.js" />
     <Content Include="AdminLTE\css\AdminLTE.css" />
     <Content Include="AdminLTE\css\AdminLTE.min.css" />
     <Content Include="AdminLTE\css\alt\AdminLTE-bootstrap-social.css" />
@@ -1207,12 +1202,12 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="js\main.js" />
-    <Content Include="Localization\LMS\LMS-zh-CN.xml" />
-    <Content Include="Localization\LMS\LMS.ja.xml" />
-    <Content Include="Localization\LMS\LMS.tr.xml">
+    <Content Include="Localization\LMS\Xml\LMS-zh-CN.xml" />
+    <Content Include="Localization\LMS\Xml\LMS.ja.xml" />
+    <Content Include="Localization\LMS\Xml\LMS.tr.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Localization\LMS\LMS.xml">
+    <Content Include="Localization\LMS\Xml\LMS.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="css\main.less" />
@@ -1235,10 +1230,6 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Abp\Framework\styles\abp.mixings.less" />
-    <Content Include="Abp\Framework\styles\abp.mixings.css.map" />
-    <Content Include="Abp\Framework\styles\abp.less" />
-    <Content Include="Abp\Framework\styles\abp.css.map" />
     <Content Include="Areas\Mpa\Views\web.config" />
     <Content Include="Areas\Mpa\Views\UserManage\Index.js" />
     <Content Include="Areas\Mpa\Views\UserManage\_CreateOrEditUserModal.js" />
@@ -1277,6 +1268,12 @@
     <Content Include="AdminLTE\plugins\bootstrap\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="AdminLTE\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="AdminLTE\plugins\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Abp\Framework\styles\abp.mixings.less" />
+    <Content Include="Abp\Framework\styles\abp.mixings.css.map" />
+    <Content Include="Abp\Framework\styles\abp.less" />
+    <Content Include="Abp\Framework\styles\abp.css.map" />
+    <Content Include="Localization\LMS\Json\LMS-zh-CN.json" />
+    <Content Include="Localization\LMS\Json\LMS.json" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1310,7 +1307,9 @@
     <Content Include="Scripts\sweetalert\sweet-alert.min.js" />
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\toastr.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -1323,15 +1322,17 @@
     <Compile Include="App_Start\LMSNavigationProvider.cs" />
     <Compile Include="App_Start\LMSWebModule.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Areas\Mpa\Models\Common\Modals\ModalHeaderViewModel.cs" />
     <Compile Include="Areas\Mpa\MpaAreaRegistration.cs" />
     <Compile Include="Areas\Mpa\Navigation\MpaNavigationProvider.cs" />
+    <Compile Include="Areas\Mpa\Navigation\NavigationUrls.cs" />
+    <Compile Include="Areas\Mpa\Navigation\PageNames.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Models\Account\LoginFormViewModel.cs" />
     <Compile Include="Models\Account\LoginViewModel.cs" />
+    <Compile Include="Models\Account\RegisterViewModel.cs" />
     <Compile Include="Models\Layout\LanguageSelectionViewModel.cs" />
     <Compile Include="Controllers\LayoutController.cs" />
     <Compile Include="Controllers\LMSControllerBase.cs" />
@@ -1355,6 +1356,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Scripts\sweetalert\sweet-alert.scss" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -9,7 +9,7 @@ namespace LMS.Authorization.Roles
     /// <summary>
     /// 角色业务管理
     /// </summary>
-    public class LmsRoleManager : RoleManager<Role, Guid>, IDomainService
+    public class LmsRoleManager : IDomainService
     {
         private readonly IRepository<Role, Guid> _roleRepository;
 
@@ -17,12 +17,10 @@ namespace LMS.Authorization.Roles
         /// 构造方法
         /// </summary>
         public LmsRoleManager(LmsRoleStore store, IRepository<Role, Guid> roleRepository)
-            : base(store)
         {
             _roleRepository = roleRepository;
         }
         public LmsRoleManager(LmsRoleStore store)
-            : base(store)
         {
         }
 

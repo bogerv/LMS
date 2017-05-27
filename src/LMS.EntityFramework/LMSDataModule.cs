@@ -6,8 +6,8 @@ using LMS.EntityFramework;
 
 namespace LMS
 {
-    [DependsOn(typeof(AbpEntityFrameworkModule), typeof(LMSCoreModule))]
-    public class LMSDataModule : AbpModule
+    [DependsOn(typeof(AbpEntityFrameworkModule), typeof(LmsCoreModule))]
+    public class LmsDataModule : AbpModule
     {
         public override void PreInitialize()
         {
@@ -17,7 +17,7 @@ namespace LMS
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(Assembly.GetExecutingAssembly());
-            Database.SetInitializer<LMSDbContext>(null);
+            Database.SetInitializer<LmsDbContext>(null);
         }
     }
 }

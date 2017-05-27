@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics;
 using System.Linq.Dynamic;
-using System.Text;
 using System.Threading.Tasks;
-using Abp;
 using Abp.Application.Services.Dto;
 using Abp.Authorization;
 using Abp.AutoMapper;
-using Abp.Configuration;
 using Abp.Domain.Repositories;
-using Abp.Extensions;
 using Abp.Linq.Extensions;
 using LMS.Authorization.Users.Authorization;
 using LMS.Authorization.Users.Dtos;
@@ -21,8 +17,8 @@ namespace LMS.Authorization.Users
     /// <summary>
     /// 用户服务实现
     /// </summary>
-    [AbpAuthorize(UserAppPermissions.User)]
-    public class UserAppService : LMSAppServiceBase, IUserAppService
+    [AbpAuthorize(UserPermissions.User)]
+    public class UserAppService : LmsAppServiceBase, IUserAppService
     {
         private readonly IRepository<User, Guid> _userRepository;
 
@@ -111,7 +107,7 @@ namespace LMS.Authorization.Users
         /// <summary>
         /// 新增用户
         /// </summary>
-        [AbpAuthorize(UserAppPermissions.User_CreateUser)]
+        [AbpAuthorize(UserPermissions.User_CreateUser)]
         public virtual async Task<UserEditDto> CreateUserAsync(UserEditDto input)
         {
             //TODO:新增前的逻辑判断，是否允许新增
@@ -125,11 +121,12 @@ namespace LMS.Authorization.Users
         /// <summary>
         /// 编辑用户
         /// </summary>
-        [AbpAuthorize(UserAppPermissions.User_EditUser)]
+        [AbpAuthorize(UserPermissions.User_EditUser)]
         public virtual async Task UpdateUserAsync(UserEditDto input)
         {
             //TODO:更新前的逻辑判断，是否允许更新
 
+            Debug.Assert(input.Id != null, "input.Id != null");
             var entity = await _userRepository.GetAsync(input.Id.Value);
             input.MapTo(entity);
 
@@ -139,7 +136,7 @@ namespace LMS.Authorization.Users
         /// <summary>
         /// 删除用户
         /// </summary>
-        [AbpAuthorize(UserAppPermissions.User_DeleteUser)]
+        [AbpAuthorize(UserPermissions.User_DeleteUser)]
         public async Task DeleteUserAsync(EntityDto<Guid> input)
         {
             //TODO:删除前的逻辑判断，是否允许删除
@@ -149,7 +146,7 @@ namespace LMS.Authorization.Users
         /// <summary>
         /// 批量删除用户
         /// </summary>
-        [AbpAuthorize(UserAppPermissions.User_DeleteUser)]
+        [AbpAuthorize(UserPermissions.User_DeleteUser)]
         public async Task BatchDeleteUserAsync(List<Guid> input)
         {
             //TODO:批量删除前的逻辑判断，是否允许删除

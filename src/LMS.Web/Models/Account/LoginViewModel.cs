@@ -10,12 +10,12 @@ namespace LMS.Web.Models.Account
     public class LoginViewModel
     {
         [Required]
-        public string UsernameOrEmailAddress { get; set; }
+        public string UserNameOrEmailAddress { get; set; }
 
         [Required]
         [DisableAuditing]
         public string Password { get; set; }
 
-        public string RememberMe { get; set; }
+        public string RememberMe { get; set; } = "off";
     }
 }

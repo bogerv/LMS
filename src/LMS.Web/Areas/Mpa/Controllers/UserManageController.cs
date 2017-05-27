@@ -8,10 +8,14 @@ using LMS.Web.Controllers;
 using System;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Abp.Authorization;
+using Abp.Runtime.Session;
+using LMS.Attributes;
 
 namespace LMS.Web.Areas.Mpa.Controllers
 {
-    public class UserManageController : LMSControllerBase
+    [LmsMvcAuthorize]
+    public class UserManageController : LmsControllerBase
     {
 
         private readonly IUserAppService _userAppService;
@@ -23,6 +27,11 @@ namespace LMS.Web.Areas.Mpa.Controllers
 
         public ActionResult Index()
         {
+            if (!PermissionChecker.IsGranted(UserPermissions.User))
+            {
+                throw new AbpAuthorizationException("You are not authorized to create user!");
+            }
+
             var model = new GetUserInput { FilterText = Request.QueryString["filterText"] };
             return View(model);
         }
@@ -32,7 +41,7 @@ namespace LMS.Web.Areas.Mpa.Controllers
         /// </summary>
         ///  <param name="id"></param>
         /// <returns></returns>
-        [AbpMvcAuthorize(UserAppPermissions.User_CreateUser, UserAppPermissions.User_EditUser)]
+        [AbpMvcAuthorize(UserPermissions.User_CreateUser, UserPermissions.User_EditUser)]
         public async Task<ActionResult> CreateOrEditUserModal(Guid? id)
         {
 
@@ -42,7 +51,7 @@ namespace LMS.Web.Areas.Mpa.Controllers
 
             var viewModel = new CreateOrEditUserModalViewModel(output);
 
-            return View(viewModel);
+            return View("_CreateOrEditUserModal", viewModel);
 
         }
     }

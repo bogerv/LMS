@@ -1,20 +1,14 @@
-﻿using Abp.Dependency;
-using Abp.Domain.Repositories;
-using Abp.Domain.Services;
-using Abp.Domain.Uow;
-using LMS.Authorization.Permissions;
-using LMS.Authorization.Roles;
-using LMS.Authorization.Users;
-using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using Abp.Dependency;
+using Abp.Domain.Repositories;
+using LMS.Authorization.Permissions;
+using LMS.Authorization.Users;
 
 namespace LMS.Authorization.Roles
 {
-    public class LmsRoleStore : IRoleStore<Role, Guid>, ITransientDependency
+    public class LmsRoleStore : ITransientDependency
     {
         /// <summary>
         /// Constructor.
@@ -38,10 +32,7 @@ namespace LMS.Authorization.Roles
         {
         }
 
-        public virtual IQueryable<Role> Roles
-        {
-            get { return _roleRepository.GetAll(); }
-        }
+        public virtual IQueryable<Role> Roles => _roleRepository.GetAll();
 
         public virtual async Task CreateAsync(Role role)
         {

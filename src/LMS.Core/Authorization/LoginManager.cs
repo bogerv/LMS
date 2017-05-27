@@ -2,6 +2,10 @@
 using Abp.Domain.Repositories;
 using Abp.Domain.Services;
 using LMS.Authorization.Roles;
+using Abp.Domain.Uow;
+using LMS.Authorization.Users;
+using Abp.Configuration;
+using Abp.Dependency;
 
 namespace LMS.Authorization
 {
@@ -11,6 +15,25 @@ namespace LMS.Authorization
     public class LoginManager : IDomainService
     {
         private readonly IRepository<Role, Guid> _roleRepository;
+        protected IUnitOfWorkManager UnitOfWorkManager { get; }
+        protected LmsUserManager UserManager { get; }
+        protected ISettingManager SettingManager { get; }
+        protected IIocResolver IocResolver { get; }
+        protected LmsRoleManager RoleManager { get; }
+
+        protected LoginManager(
+           LmsUserManager userManager,
+            IUnitOfWorkManager unitOfWorkManager,
+            ISettingManager settingManager,
+            IIocResolver iocResolver,
+            LmsRoleManager roleManager)
+        {
+            UnitOfWorkManager = unitOfWorkManager;
+            SettingManager = settingManager;
+            IocResolver = iocResolver;
+            RoleManager = roleManager;
+            UserManager = userManager;
+        }
 
         /// <summary>
         /// 构造方法

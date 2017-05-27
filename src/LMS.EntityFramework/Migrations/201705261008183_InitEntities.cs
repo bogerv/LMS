@@ -17,43 +17,18 @@ namespace LMS.Migrations
                         Name = c.String(),
                         DisplayName = c.String(),
                         Description = c.String(),
-                        TenantId = c.Int(),
                         ParentId = c.Guid(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        DeleterUserId = c.Guid(),
+                        DeletionTime = c.DateTime(),
+                        LastModificationTime = c.DateTime(),
+                        LastModifierUserId = c.Guid(),
                         CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Permission_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
+                        CreatorUserId = c.Guid(),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Permission", t => t.ParentId)
                 .Index(t => t.ParentId);
-            
-            CreateTable(
-                "dbo.PermissionSetting",
-                c => new
-                    {
-                        Id = c.Guid(nullable: false),
-                        IsGranted = c.Boolean(nullable: false),
-                        PermissionId = c.Guid(nullable: false),
-                        RoleId = c.Guid(),
-                        UserId = c.Guid(),
-                        TenantId = c.Int(),
-                        CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_PermissionSetting_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Permission", t => t.PermissionId)
-                .ForeignKey("dbo.User", t => t.UserId)
-                .ForeignKey("dbo.Role", t => t.RoleId)
-                .Index(t => t.PermissionId)
-                .Index(t => t.RoleId)
-                .Index(t => t.UserId);
             
             CreateTable(
                 "dbo.RecTeam",
@@ -62,25 +37,18 @@ namespace LMS.Migrations
                         Id = c.Guid(nullable: false),
                         TableId = c.Guid(nullable: false),
                         TeamId = c.Guid(nullable: false),
-                        TenantId = c.Int(),
                         CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                        Permission_Id = c.Guid(),
+                        CreatorUserId = c.Guid(),
                         Role_Id = c.Guid(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_RecTeam_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Post", t => t.TableId, cascadeDelete: true)
                 .ForeignKey("dbo.User", t => t.TableId)
                 .ForeignKey("dbo.Team", t => t.TeamId, cascadeDelete: true)
-                .ForeignKey("dbo.Permission", t => t.Permission_Id)
+                .ForeignKey("dbo.Permission", t => t.TableId, cascadeDelete: true)
                 .ForeignKey("dbo.Role", t => t.Role_Id)
                 .Index(t => t.TableId)
                 .Index(t => t.TeamId)
-                .Index(t => t.Permission_Id)
                 .Index(t => t.Role_Id);
             
             CreateTable(
@@ -91,23 +59,18 @@ namespace LMS.Migrations
                         Code = c.String(nullable: false, maxLength: 95),
                         DisplayName = c.String(nullable: false, maxLength: 256),
                         ParentId = c.Guid(nullable: false),
-                        TenantId = c.Int(),
                         IsDeleted = c.Boolean(nullable: false),
-                        DeleterUserId = c.Long(),
+                        DeleterUserId = c.Guid(),
                         DeletionTime = c.DateTime(),
                         LastModificationTime = c.DateTime(),
-                        LastModifierUserId = c.Long(),
+                        LastModifierUserId = c.Guid(),
                         CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Team_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                    { "DynamicFilter_Team_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
+                        CreatorUserId = c.Guid(),
+                        Team_Id = c.Guid(),
+                    })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Team", t => t.ParentId)
-                .Index(t => t.ParentId);
+                .ForeignKey("dbo.Team", t => t.Team_Id)
+                .Index(t => t.Team_Id);
             
             CreateTable(
                 "dbo.Post",
@@ -118,20 +81,14 @@ namespace LMS.Migrations
                         Description = c.String(),
                         TeamId = c.Guid(),
                         PostLevelId = c.Guid(),
-                        TenantId = c.Int(),
                         IsDeleted = c.Boolean(nullable: false),
-                        DeleterUserId = c.Long(),
+                        DeleterUserId = c.Guid(),
                         DeletionTime = c.DateTime(),
                         LastModificationTime = c.DateTime(),
-                        LastModifierUserId = c.Long(),
+                        LastModifierUserId = c.Guid(),
                         CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Post_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                    { "DynamicFilter_Post_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
+                        CreatorUserId = c.Guid(),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.PostLevel", t => t.PostLevelId)
                 .ForeignKey("dbo.Team", t => t.TeamId)
@@ -145,20 +102,9 @@ namespace LMS.Migrations
                         Id = c.Guid(nullable: false),
                         Name = c.String(nullable: false, maxLength: 256),
                         Level = c.Int(nullable: false),
-                        TenantId = c.Int(),
-                        IsDeleted = c.Boolean(nullable: false),
-                        DeleterUserId = c.Long(),
-                        DeletionTime = c.DateTime(),
-                        LastModificationTime = c.DateTime(),
-                        LastModifierUserId = c.Long(),
                         CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_PostLevel_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                    { "DynamicFilter_PostLevel_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
+                        CreatorUserId = c.Guid(),
+                    })
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
@@ -168,19 +114,14 @@ namespace LMS.Migrations
                         UserId = c.Guid(nullable: false),
                         PostId = c.Guid(nullable: false),
                         Id = c.Guid(nullable: false),
-                        TenantId = c.Int(),
                         IsMain = c.Boolean(),
                         IsActive = c.Boolean(nullable: false),
                         StartTime = c.DateTime(),
                         EndTime = c.DateTime(),
                         PostStatus = c.Int(),
                         CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Long(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_UserPost_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
+                        CreatorUserId = c.Guid(),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Post", t => t.PostId, cascadeDelete: true)
                 .ForeignKey("dbo.User", t => t.UserId)
@@ -194,7 +135,7 @@ namespace LMS.Migrations
                         Id = c.Guid(nullable: false),
                         UserName = c.String(nullable: false, maxLength: 64),
                         Name = c.String(nullable: false, maxLength: 64),
-                        Surname = c.String(nullable: false, maxLength: 64),
+                        Surname = c.String(maxLength: 64),
                         Password = c.String(nullable: false, maxLength: 256),
                         EmailAddress = c.String(nullable: false, maxLength: 256),
                         IsEmailConfirmed = c.Boolean(nullable: false),
@@ -206,15 +147,13 @@ namespace LMS.Migrations
                         LastModificationTime = c.DateTime(),
                         DeletionTime = c.DateTime(),
                         IsDeleted = c.Boolean(nullable: false),
-                        TenantId = c.Int(),
-                        CreatorUserId = c.Guid(nullable: false),
-                        DeleterUserId = c.Guid(nullable: false),
-                        LastModifierUserId = c.Guid(nullable: false),
+                        CreatorUserId = c.Guid(),
+                        DeleterUserId = c.Guid(),
+                        LastModifierUserId = c.Guid(),
                         TeamId = c.Guid(nullable: false),
                     },
                 annotations: new Dictionary<string, object>
                 {
-                    { "DynamicFilter_User_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                     { "DynamicFilter_User_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 })
                 .PrimaryKey(t => t.Id)
@@ -228,6 +167,24 @@ namespace LMS.Migrations
                 .Index(t => t.TeamId);
             
             CreateTable(
+                "dbo.PermissionSetting",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        IsGranted = c.Boolean(nullable: false),
+                        Name = c.String(),
+                        RoleId = c.Guid(),
+                        UserId = c.Guid(),
+                        CreationTime = c.DateTime(nullable: false),
+                        CreatorUserId = c.Guid(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.User", t => t.UserId)
+                .ForeignKey("dbo.Role", t => t.RoleId)
+                .Index(t => t.RoleId)
+                .Index(t => t.UserId);
+            
+            CreateTable(
                 "dbo.UserRole",
                 c => new
                     {
@@ -235,13 +192,8 @@ namespace LMS.Migrations
                         UserId = c.Guid(nullable: false),
                         RoleId = c.Guid(nullable: false),
                         CreationTime = c.DateTime(nullable: false),
-                        CreatorUserId = c.Guid(nullable: false),
-                        TenantId = c.Int(),
-                    },
-                annotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_UserRole_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                })
+                        CreatorUserId = c.Guid(),
+                    })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.User", t => t.UserId)
                 .ForeignKey("dbo.Role", t => t.RoleId)
@@ -258,7 +210,6 @@ namespace LMS.Migrations
                         Description = c.String(),
                         IsStatic = c.Boolean(nullable: false),
                         IsDefault = c.Boolean(nullable: false),
-                        TenantId = c.Int(),
                         CreationTime = c.DateTime(nullable: false),
                         LastModificationTime = c.DateTime(),
                         DeletionTime = c.DateTime(),
@@ -269,9 +220,19 @@ namespace LMS.Migrations
                     },
                 annotations: new Dictionary<string, object>
                 {
-                    { "DynamicFilter_Role_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                     { "DynamicFilter_Role_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
+                "dbo.UserLogin",
+                c => new
+                    {
+                        Id = c.Guid(nullable: false),
+                        UserId = c.Guid(nullable: false),
+                        LoginProvider = c.String(nullable: false, maxLength: 128),
+                        ProviderKey = c.String(nullable: false, maxLength: 256),
+                    })
                 .PrimaryKey(t => t.Id);
             
         }
@@ -281,7 +242,7 @@ namespace LMS.Migrations
             DropForeignKey("dbo.UserRole", "RoleId", "dbo.Role");
             DropForeignKey("dbo.RecTeam", "Role_Id", "dbo.Role");
             DropForeignKey("dbo.PermissionSetting", "RoleId", "dbo.Role");
-            DropForeignKey("dbo.RecTeam", "Permission_Id", "dbo.Permission");
+            DropForeignKey("dbo.RecTeam", "TableId", "dbo.Permission");
             DropForeignKey("dbo.RecTeam", "TeamId", "dbo.Team");
             DropForeignKey("dbo.UserRole", "UserId", "dbo.User");
             DropForeignKey("dbo.UserPost", "UserId", "dbo.User");
@@ -295,11 +256,12 @@ namespace LMS.Migrations
             DropForeignKey("dbo.Post", "TeamId", "dbo.Team");
             DropForeignKey("dbo.RecTeam", "TableId", "dbo.Post");
             DropForeignKey("dbo.Post", "PostLevelId", "dbo.PostLevel");
-            DropForeignKey("dbo.Team", "ParentId", "dbo.Team");
-            DropForeignKey("dbo.PermissionSetting", "PermissionId", "dbo.Permission");
+            DropForeignKey("dbo.Team", "Team_Id", "dbo.Team");
             DropForeignKey("dbo.Permission", "ParentId", "dbo.Permission");
             DropIndex("dbo.UserRole", new[] { "RoleId" });
             DropIndex("dbo.UserRole", new[] { "UserId" });
+            DropIndex("dbo.PermissionSetting", new[] { "UserId" });
+            DropIndex("dbo.PermissionSetting", new[] { "RoleId" });
             DropIndex("dbo.User", new[] { "TeamId" });
             DropIndex("dbo.User", new[] { "LastModifierUserId" });
             DropIndex("dbo.User", new[] { "DeleterUserId" });
@@ -308,70 +270,30 @@ namespace LMS.Migrations
             DropIndex("dbo.UserPost", new[] { "UserId" });
             DropIndex("dbo.Post", new[] { "PostLevelId" });
             DropIndex("dbo.Post", new[] { "TeamId" });
-            DropIndex("dbo.Team", new[] { "ParentId" });
+            DropIndex("dbo.Team", new[] { "Team_Id" });
             DropIndex("dbo.RecTeam", new[] { "Role_Id" });
-            DropIndex("dbo.RecTeam", new[] { "Permission_Id" });
             DropIndex("dbo.RecTeam", new[] { "TeamId" });
             DropIndex("dbo.RecTeam", new[] { "TableId" });
-            DropIndex("dbo.PermissionSetting", new[] { "UserId" });
-            DropIndex("dbo.PermissionSetting", new[] { "RoleId" });
-            DropIndex("dbo.PermissionSetting", new[] { "PermissionId" });
             DropIndex("dbo.Permission", new[] { "ParentId" });
+            DropTable("dbo.UserLogin");
             DropTable("dbo.Role",
                 removedAnnotations: new Dictionary<string, object>
                 {
-                    { "DynamicFilter_Role_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                     { "DynamicFilter_Role_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
-            DropTable("dbo.UserRole",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_UserRole_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
+            DropTable("dbo.UserRole");
+            DropTable("dbo.PermissionSetting");
             DropTable("dbo.User",
                 removedAnnotations: new Dictionary<string, object>
                 {
-                    { "DynamicFilter_User_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                     { "DynamicFilter_User_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
                 });
-            DropTable("dbo.UserPost",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_UserPost_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.PostLevel",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_PostLevel_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                    { "DynamicFilter_PostLevel_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.Post",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Post_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                    { "DynamicFilter_Post_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.Team",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Team_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                    { "DynamicFilter_Team_SoftDelete", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.RecTeam",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_RecTeam_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.PermissionSetting",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_PermissionSetting_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
-            DropTable("dbo.Permission",
-                removedAnnotations: new Dictionary<string, object>
-                {
-                    { "DynamicFilter_Permission_MayHaveTenant", "EntityFramework.DynamicFilters.DynamicFilterDefinition" },
-                });
+            DropTable("dbo.UserPost");
+            DropTable("dbo.PostLevel");
+            DropTable("dbo.Post");
+            DropTable("dbo.Team");
+            DropTable("dbo.RecTeam");
+            DropTable("dbo.Permission");
         }
     }
 }

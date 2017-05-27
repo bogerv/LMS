@@ -4,10 +4,10 @@ using Abp.EntityFramework.Repositories;
 
 namespace LMS.EntityFramework.Repositories
 {
-    public abstract class LMSRepositoryBase<TEntity, TPrimaryKey> : EfRepositoryBase<LMSDbContext, TEntity, TPrimaryKey>
+    public abstract class LmsRepositoryBase<TEntity, TPrimaryKey> : EfRepositoryBase<LmsDbContext, TEntity, TPrimaryKey>
         where TEntity : class, IEntity<TPrimaryKey>
     {
-        protected LMSRepositoryBase(IDbContextProvider<LMSDbContext> dbContextProvider)
+        protected LmsRepositoryBase(IDbContextProvider<LmsDbContext> dbContextProvider)
             : base(dbContextProvider)
         {
 
@@ -16,10 +16,10 @@ namespace LMS.EntityFramework.Repositories
         //add common methods for all repositories
     }
 
-    public abstract class LMSRepositoryBase<TEntity> : LMSRepositoryBase<TEntity, int>
+    internal abstract class LmsRepositoryBase<TEntity> : LmsRepositoryBase<TEntity, int>
         where TEntity : class, IEntity<int>
     {
-        protected LMSRepositoryBase(IDbContextProvider<LMSDbContext> dbContextProvider)
+        protected LmsRepositoryBase(IDbContextProvider<LmsDbContext> dbContextProvider)
             : base(dbContextProvider)
         {
 

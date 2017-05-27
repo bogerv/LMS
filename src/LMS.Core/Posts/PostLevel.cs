@@ -1,16 +1,13 @@
-﻿using Abp.Domain.Values;
-using LMS.Base;
+﻿using LMS.Base;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMS.Posts
 {
     /// <summary>
     /// 职位等级表
     /// </summary>
-    public class PostLevel : EntityBase
+    public class PostLevel : CreationAuditedEntity<Guid>
     {
         public const int MaxPostLevelLength = 256;
 

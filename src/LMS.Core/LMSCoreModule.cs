@@ -3,7 +3,7 @@ using Abp.Modules;
 
 namespace LMS
 {
-    public class LMSCoreModule : AbpModule
+    public class LmsCoreModule : AbpModule
     {
         public override void Initialize()
         {

@@ -1,24 +1,23 @@
-﻿using Abp.Domain.Uow;
+﻿using System.Data.Entity;
+using Abp.Domain.Uow;
 using Abp.Localization;
 using Abp.Runtime.Caching;
 using Abp.Web.Models;
+using Castle.Core.Logging;
 using LMS.Authorization.Roles;
 using LMS.Authorization.Users;
 using LMS.Web.Models.Account;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace LMS.Web.Controllers
 {
-    public class AccountController : LMSControllerBase
+    public class AccountController : LmsControllerBase
     {
         //private readonly SignInManager<User, Guid> _signInManager;
         private readonly LmsUserManager _userManager;
@@ -27,6 +26,7 @@ namespace LMS.Web.Controllers
         private readonly ICacheManager _cacheManager;
         private readonly IAuthenticationManager _authenticationManager;
         private readonly ILanguageManager _languageManager;
+        public readonly ILogger _logger;
 
         public AccountController(
             LmsUserManager userManager,
@@ -35,7 +35,8 @@ namespace LMS.Web.Controllers
             ICacheManager cacheManager,
             //SignInManager<User, Guid> signInManager,
             IAuthenticationManager authenticationManager,
-            ILanguageManager languageManager)
+            ILanguageManager languageManager,
+            ILogger logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -44,6 +45,7 @@ namespace LMS.Web.Controllers
             //_signInManager = signInManager;
             _authenticationManager = authenticationManager;
             _languageManager = languageManager;
+            _logger = logger;
         }
 
         #region 登录/退出
@@ -60,7 +62,9 @@ namespace LMS.Web.Controllers
 
         [HttpPost]
         [UnitOfWork]
-        public ActionResult Login(LoginViewModel loginModel, string returnUrl = "", string returnUrlHash = "")
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(LoginViewModel loginModel, string returnUrl = "", string returnUrlHash = "")
         {
             if (!string.IsNullOrWhiteSpace(returnUrlHash))
             {
@@ -68,34 +72,19 @@ namespace LMS.Web.Controllers
             }
             if (ModelState.IsValid)
             {
-                var identity = new ClaimsIdentity(new[] {
-                new Claim(ClaimTypes.Name, loginModel.UsernameOrEmailAddress),
-                new Claim(ClaimTypes.Email, loginModel.Password),
-            },
-            "ApplicationCookie");
-
-                //var ctx = Request.GetOwinContext();
-                //var authManager = ctx.Authentication;
-
-                _authenticationManager.SignIn(identity);
-                //var result = await _signInManager.PasswordSignInAsync(loginModel.UsernameOrEmailAddress, loginModel.Password, loginModel.RememberMe, shouldLockout: false);
-                //if (result == SignInStatus.Success)
-                //{
-                //    return Json(new AjaxResponse
-                //    {
-                //        TargetUrl = Url.Action(
-                //            "SendSecurityCode",
-                //            new
-                //            {
-                //                returnUrl = returnUrl,
-                //                rememberMe = loginModel.RememberMe
-                //            })
-                //    });
-                //}
-                return Redirect(GetRedirectUrl(returnUrl));
+                var user = await _userManager.FindAsync(loginModel.UserNameOrEmailAddress, loginModel.Password);
+                if (user != null)
+                {
+                    await SignInAsync(user, loginModel.RememberMe.Equals("on"));
+                    return Redirect(GetRedirectUrl(returnUrl));
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
             }
 
-            return Json(new AjaxResponse { TargetUrl = returnUrl });
+            return Json(new AjaxResponse { TargetUrl = GetRedirectUrl(returnUrl) });
         }
 
         [HttpPost]
@@ -123,6 +112,33 @@ namespace LMS.Web.Controllers
         public ActionResult Register()
         {
             return View();
+        }
+
+        [HttpPost]
+        [UnitOfWork]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterAsync(RegisterViewModel registerModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new User() { UserName = registerModel.UserName, Password = registerModel.Password, EmailAddress = registerModel.EmailAddress, Name = registerModel.Name };
+                //var result = await _userManager.CreateAsync(user, registerModel.Password);
+                //if (result.Succeeded)
+                //{
+                //    await SignInAsync(user, isPersistent: false);
+                //    return RedirectToAction("Index", "Home");
+                //}
+            }
+            //return View(registerModel);
+            return Json("ok");
+        }
+
+        private async Task SignInAsync(User user, bool isPersistent)
+        {
+            var identity = await _userManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+
+            _authenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            _authenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
         #endregion

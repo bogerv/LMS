@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace LMS.Authorization.Users
 {
-    public class LmsUserStore : IUserStore<User, Guid>, ITransientDependency
+    public class LmsUserStore : IUserStore<User, Guid>, IUserPasswordStore<User,Guid>, ITransientDependency
     {
         /// <summary>
         /// Constructor.
@@ -83,6 +83,27 @@ namespace LMS.Authorization.Users
 
         public void Dispose()
         {
+        }
+
+        public Task SetPasswordHashAsync(User user, string passwordHash)
+        {
+            user.Password = passwordHash;
+            return Task.FromResult(0);
+        }
+
+        public Task<string> GetPasswordHashAsync(User user)
+        {
+            return Task.FromResult<string>(user.Password);
+        }
+
+        public Task<bool> HasPasswordAsync(User user)
+        {
+            return Task.FromResult<bool>(!String.IsNullOrEmpty(user.Password));
+        }
+
+        public Task<User> FindByIdAsync(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

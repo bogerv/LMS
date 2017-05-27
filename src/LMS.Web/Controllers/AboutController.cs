@@ -2,7 +2,7 @@
 
 namespace LMS.Web.Controllers
 {
-    public class AboutController : LMSControllerBase
+    public class AboutController : LmsControllerBase
     {
         public ActionResult Index()
         {

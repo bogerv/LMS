@@ -1,17 +1,12 @@
 ﻿using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
-using Castle.Components.DictionaryAdapter;
-using LMS.Entities;
+using LMS.Base;
 using LMS.Posts;
 using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LMS.Authorization.Users
 {
-    public class UserPost : CreationAuditedEntity<Guid>, IMayHaveTenant, IPassivable
+    public class UserPost : CreationAuditedEntity<Guid>, IPassivable
     {
-        public int? TenantId { get; set; }
-
         public bool? IsMain { get; set; }
         public bool IsActive { get; set; }
         public DateTime? StartTime { get; set; }
@@ -34,9 +29,8 @@ namespace LMS.Authorization.Users
         {
         }
 
-        public UserPost(int? tenantId, Guid userId, Guid postId)
+        public UserPost(Guid userId, Guid postId)
         {
-            TenantId = tenantId;
             UserId = userId;
             PostId = postId;
             IsActive = true;
