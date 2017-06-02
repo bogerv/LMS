@@ -1,0 +1,41 @@
+﻿form .form-control {
+    border-color: #d2d6de;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.nav-tabs-custom {
+    margin-bottom: 60px;
+}
+
+    .nav-tabs-custom > .nav-tabs {
+        width: 100%;
+    }
+
+        .nav-tabs-custom > .nav-tabs > li.active {
+            border-bottom-color: #3c8dbc;
+        }
+
+        .nav-tabs-custom > .nav-tabs > li {
+            border-bottom: 3px solid transparent;
+            border-top: none;
+            border-right-color: transparent;
+            margin-bottom: -2px;
+            margin-right: 5px;
+        }
+
+            .nav-tabs-custom > .nav-tabs > li.active > a {
+                border-top-color: transparent;
+                border-left-color: transparent;
+                border-right-color: transparent;
+            }
+
+.tab-pane {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.tab-content.no-padding {
+    margin-top: 20px;
+}

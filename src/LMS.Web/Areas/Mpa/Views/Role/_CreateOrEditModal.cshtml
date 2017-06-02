@@ -1,0 +1,59 @@
+﻿@using Abp.Authorization.Roles
+@using LMS.Web.Areas.Mpa.Models.Common.Modals
+@model LMS.Web.Areas.Mpa.Models.Roles.CreateOrEditRoleViewModel
+
+@{ Layout = null;}
+
+<link href="~/Areas/Mpa/Views/User/_CreateOrEditModal.css" rel="stylesheet" />
+
+@Html.Partial("~/Areas/Mpa/Views/Common/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditRole") + ": " + Model.Role.DisplayName) : L("CreateNewRole")))
+
+<div class="modal-body">
+
+    <div class="nav-tabs-custom" style="cursor: move;">
+        <ul class="nav nav-tabs pull-left ui-sortable-handle">
+            <li class="active">
+                <a href="#RoleInformationsTab" data-toggle="tab" aria-expanded="true">
+                    @L("RoleProperties")
+                </a>
+            </li>
+            <li class="">
+                <a href="#PermissionsTab" data-toggle="tab" aria-expanded="false">
+                    @L("Permissions")
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content no-padding">
+
+        <div class="tab-pane active" id="RoleInformationsTab">
+            <form name="BasicRoleForm" role="form" novalidate class="form-validation">
+
+                @if (Model.IsEditMode)
+                {
+                    <input type="hidden" name="Id" value="@Model.Role.Id" />
+                }
+
+                <div class="form-group">
+                    <label>@L("RoleName")</label>
+                    <input class="form-control" type="text" name="DisplayName" value="@Model.Role.DisplayName" required maxlength="@AbpRoleBase.MaxNameLength" minlength="2">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="IsDefault" value="true" @Html.Raw(Model.Role.IsDefault ? "checked=\"checked\"" : "")> @L("IsDefault")
+                    </label>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="tab-pane" id="PermissionsTab">
+            @Html.Partial("~/Areas/Mpa/Views/Common/_PermissionTree.cshtml", Model)
+        </div>
+
+    </div>
+</div>
+
+@Html.Partial("~/Areas/Mpa/Views/Common/_ModalFooterWithSaveAndCancel.cshtml")

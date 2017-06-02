@@ -159,6 +159,10 @@
     <Compile Include="Migrations\201705261008183_InitEntities.Designer.cs">
       <DependentUpon>201705261008183_InitEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705310552400_UpdateSeedData.cs" />
+    <Compile Include="Migrations\201705310552400_UpdateSeedData.Designer.cs">
+      <DependentUpon>201705310552400_UpdateSeedData.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="LMSDataModule.cs" />
     <Compile Include="Migrations\Seed\DefaultRoleAndUserCreator.cs" />
@@ -179,6 +183,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201705261008183_InitEntities.resx">
       <DependentUpon>201705261008183_InitEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705310552400_UpdateSeedData.resx">
+      <DependentUpon>201705310552400_UpdateSeedData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

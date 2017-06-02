@@ -1,0 +1,87 @@
+﻿@using Abp.Authorization.Users
+@using Wicrecend.Web.Models.Common
+@model Wicrecend.Application.Users.Dto.EditUserOutput
+
+<link href="~/Areas/Admin/Views/User/_CreateOrEditModal.css" rel="stylesheet" />
+
+@Html.Partial("~/Areas/Mpa/Views/Common/_ModalHeader.cshtml", new ModalHeaderViewModel(Model.IsEditMode ? (L("EditUser") + ": " + Model.User.UserName) : L("CreateNewUser")))
+
+<div class="modal-body">
+
+    <div class="nav-tabs-custom" style="cursor: move;">
+        <ul class="nav nav-tabs pull-left ui-sortable-handle">
+            <li class="active">
+                <a href="#user-properties" data-toggle="tab" aria-expanded="true">@L("UserProperties")</a>
+            </li>
+            <li class="">
+                <a href="#user-roles" data-toggle="tab" aria-expanded="false">@L("UserRoles")</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="tab-content no-padding">
+        <!-- Morris chart - Sales -->
+        <div id="user-properties" class="tab-pane active">
+
+            <form name="UserBasicInfoForm" role="form" novalidate class="form-validation">
+                <div class="form-group">
+                    <input class="form-control" type="hidden" name="Id" value="@Model.User.Id" required>
+                </div>
+
+                <div class="form-group">
+                    <label>@L("UserName")</label>
+                    <input class="form-control" type="text" name="UserName" value="@Model.User.UserName" required maxlength="@AbpUserBase.MaxUserNameLength" minlength="2">
+                </div>
+
+                <div class="form-group">
+                    <label>@L("Name")</label>
+                    <input type="text" name="Name" class="form-control" value="@Model.User.Name" required maxlength="@Wicrecend.Core.Entities.User.MaxNameLength">
+                </div>
+
+                <div class="form-group">
+                    <label>@L("Surname")</label>
+                    <input type="text" name="Surname" class="form-control" value="@Model.User.Surname" required maxlength="@Wicrecend.Core.Entities.User.MaxSurnameLength">
+                </div>
+
+                <div class="form-group">
+                    <label>@L("EmailAddress")</label>
+                    <input type="email" name="EmailAddress" value="@Model.User.EmailAddress" class="form-control" maxlength="@AbpUserBase.MaxEmailAddressLength">
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" name="IsActive" @Html.Raw(Model.User.IsActive ? "checked=\"checked\"" : "") /> @L("IsActive")
+                    </label>
+                </div>
+            </form>
+
+        </div>
+        <div id="user-roles" class="tab-pane">
+
+            <table id="userRoleList" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model.Roles)
+                    {
+                        <tr class="user-role-check-list">
+                            <td>@role.RoleName</td>
+                            <td>
+                                @{ var isAssigned = @role.IsAssigned ? "checked=\"checked\"" : ""; }
+                                <input class="isAssigned"  name="@role.RoleName" type="checkbox" @isAssigned />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("~/Areas/Mpa/Views/Common/_ModalFooterWithSaveAndCancel.cshtml")

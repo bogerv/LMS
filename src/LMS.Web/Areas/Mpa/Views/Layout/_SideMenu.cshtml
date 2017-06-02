@@ -1,0 +1,80 @@
+﻿@using Abp.Application.Navigation;
+@using Abp.Collections.Extensions
+@using LMS.Web.Extensions
+@model LMS.Web.Areas.Mpa.Models.Layout.SideMenuViewModel
+
+@{
+    @helper RenderUserMenuItem(UserMenuItem menuItem, int menuItemIndex, bool rootLevel)
+    {
+        var active = menuItem.IsMenuActive(Model.CurrentPageName) ? "active" : "";
+        var menuOpen = !string.IsNullOrEmpty(active) && (menuItem.Items.Count(m => m.Name.Equals(Model.CurrentPageName)) > 0) ? "menu-open" : "";
+        if (menuItem.Items.IsNullOrEmpty())
+        {
+            <li class="@(active)">
+                <a href="@menuItem.CalculateUrl(ApplicationPath)">
+                    @if (!string.IsNullOrWhiteSpace(menuItem.Icon))
+                    {
+                        <i class="@menuItem.Icon"></i>
+                    }
+                    <span>@menuItem.DisplayName</span>
+                    @*<span class="pull-right-container">
+                            <small class="label pull-right bg-green">new</small>
+                        </span>*@
+                </a>
+            </li>
+        }
+        else
+        {
+            <li class="@(active) treeview @(menuOpen)">
+                <a href="">
+                    @if (!string.IsNullOrWhiteSpace(menuItem.Icon))
+                    {
+                        <i class="@menuItem.Icon"></i>
+                    }
+                    <span>@menuItem.DisplayName</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                    @*<span class="pull-right-container">
+                            <span class="label label-primary pull-right">4</span>
+                        </span>*@
+                </a>
+                <ul class="treeview-menu">
+                    @for (var i = 0; i < menuItem.Items.Count; i++)
+                    {
+                        var childMenuItem = menuItem.Items[i];
+                        @RenderUserMenuItem(childMenuItem, i, false)
+                    }
+                </ul>
+            </li>
+        }
+    }
+}
+
+<ul class="sidebar-menu tree" data-widget="tree">
+    <li class="header">CMS</li>
+    @for (int i = 0; i < Model.MainMenu.Items.Count; i++)
+    {
+        var menuItem = Model.MainMenu.Items[i];
+        @RenderUserMenuItem(menuItem, i, true);
+    }
+
+    <li class="header">MAIN NAVIGATION</li>
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-files-o"></i>
+            <span>Layout Options</span>
+            <span class="pull-right-container">
+                <span class="label label-primary pull-right bg-green">4</span>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+        </ul>
+    </li>
+    <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+    @*text-aqua text-yellow*@
+</ul>

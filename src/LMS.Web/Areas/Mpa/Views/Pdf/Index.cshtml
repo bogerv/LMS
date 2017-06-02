@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    
+    <style>
+        .pdfobject-container {
+            width: 100%;
+            max-width: 100%;
+            height: 600px;
+            margin: 2em 0;
+        }
+
+            .pdfobject-container div:first-child {
+                overflow: hidden;
+                position: absolute;
+                width: 60%;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                margin: auto;
+            }
+
+        /*.pdfobject { border: solid 1px #666; }*/
+    </style>
+</head>
+<body>
+    <div>
+    </div>
+<div id="pdfContainer">
+
+</div>
+<div id="results" class="hidden"></div>
+    <script src="~/AdminLTE/libs/PDFObject/pdfobject.min.js"></script>
+    <script>
+        var options = {
+            width: "100rem",
+            height: "100rem",
+            pdfOpenParams: {
+                navpanes: 0,
+                toolbar: 0,
+                statusbar: 0,
+                view: "FitV",
+                pagemode: "thumbs",
+                page: 1
+            },
+            forcePDFJS: true
+            ,PDFJS_URL: "/AdminLTE/libs/pdfjs/web/viewer.html"
+        };
+        var myPDF = PDFObject.embed("/test.pdf", "#pdfContainer", options);
+        //var el = document.querySelector("#results");
+        //el.setAttribute("class", (myPDF) ? "success" : "fail");
+        //el.innerHTML = (myPDF) ? "PDFObject was successful!" : "Uh-oh, the embed didn't work.";
+    </script>
+</body>
+</html>

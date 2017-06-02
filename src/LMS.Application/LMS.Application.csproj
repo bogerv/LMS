@@ -151,10 +151,18 @@
     <Compile Include="Authorization\Users\IUserAppService.cs" />
     <Compile Include="Authorization\Users\Mappers\UserDtoMapper.cs" />
     <Compile Include="Authorization\Users\UserAppService.cs" />
+    <Compile Include="CustomDtoMapper.cs" />
+    <Compile Include="Datatables\DatatablesResultDto.cs" />
     <Compile Include="LMSApplicationModule.cs" />
     <Compile Include="LMSAppServiceBase.cs" />
     <Compile Include="PagedAndSortedInputDto.cs" />
+    <Compile Include="Permissions\GrantedPermissionDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Roles\Dto\CreateOrEditRoleInput.cs" />
+    <Compile Include="Roles\Dto\GetRoleForEditOutput.cs" />
+    <Compile Include="Roles\IRoleAppService.cs" />
+    <Compile Include="Roles\Dto\RoleEditDto.cs" />
+    <Compile Include="Roles\Dto\RoleListDto.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

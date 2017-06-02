@@ -15,6 +15,20 @@ namespace LMS.Authorization.Users
         #region 用户管理
 
         /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        Task<ListResultDto<UserListDto>> GetUsersAsync();
+
+        ListResultDto<UserListDto> GetUsers();
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <returns></returns>
+        Task<List<UserListDto>> GetUserList();
+
+        /// <summary>
         /// 根据查询条件获取用户分页列表
         /// </summary>
         Task<PagedResultDto<UserListDto>> GetPagedUsersAsync(GetUserInput input);

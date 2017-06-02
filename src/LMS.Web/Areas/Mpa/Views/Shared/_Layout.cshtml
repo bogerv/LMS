@@ -1,0 +1,85 @@
+﻿@using Abp.Timing
+@using System.Threading
+
+@{
+    SetAntiForgeryCookie();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <title>Admin LMS | 2</title>
+
+    @Styles.Render("~/Bundles/Admin/libs/css")
+    @Styles.Render("~/Bundles/AdminLTE/css")
+    @Styles.Render("~/Bundles/Common/css")
+
+    <!-- View specific styles -->
+    @RenderSection("styles", required: false)
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+    <div class="wrapper">
+        <!-- top navbar-->
+        <header class="main-header">
+            @Html.Partial("_TopNavbar")
+        </header>
+        <!-- sidebar-->
+        <aside class="main-sidebar">
+            @*@Html.Partial("_Sidebar")*@
+            <!-- sidebar: style can be found in sidebar.less -->
+            <section class="sidebar">
+                <!-- Sidebar user panel -->
+                @Html.Action("PersonInfo", "Layout")
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                @Html.Action("SideMenu", "Layout", new { currentPageName = ViewBag.CurrentPageName })
+            </section>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- offsidebar-->
+        <aside class="control-sidebar control-sidebar-dark">
+            @Html.Partial("_Offsidebar")
+        </aside>
+        <!-- Page content-->
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+        <!-- Page footer-->
+        <footer class="main-footer">
+            @Html.Partial("_Footer")
+        </footer>
+    </div>
+
+    @Scripts.Render("~/Bundles/Admin/libs/js")
+    @Scripts.Render("~/Bundles/Admin/js")
+    @Scripts.Render("~/Bundles/Common/js")
+
+    <script>
+        //Localizing momentjs
+        moment.locale('@Thread.CurrentThread.CurrentUICulture.Name');
+    </script>
+
+    <!-- Dynamic scripts of ABP system (They are created on runtime and can not be bundled) -->
+    <script src="~/api/AbpServiceProxies/GetAll?v=@(Clock.Now.Ticks)"></script>
+    <script src="~/AbpScripts/GetScripts?v=@(Clock.Now.Ticks)" type="text/javascript"></script>
+
+    <!-- SignalR scripts -->
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Abp/Framework/scripts/libs/abp.signalr.js"></script>
+
+    <!-- View specific scripts -->
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿@model LMS.Web.Areas.Mpa.Models.Layout.LanguageSelectionViewModel
+
+<li class="dropdown languages-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="@Model.CurrentLanguage.Icon"></i>
+        <span>@Model.CurrentLanguage.DisplayName</span>
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="header">Change language</li>
+        <li>
+            <!-- inner menu: contains the actual data -->
+            <ul class="menu">
+                @foreach (var language in Model.Languages)
+                {
+                    if (language.Name != Model.CurrentLanguage.Name)
+                    {
+                        <li><a href="@Url.Action("ChangeCulture", "AbpLocalization", new { area = "" })?cultureName=@(language.Name)&returnUrl=@(Request.Url)"><i class="@language.Icon"></i> @language.DisplayName</a></li>
+                    }
+                }
+            </ul>
+        </li>
+    </ul>
+</li>

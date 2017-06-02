@@ -17,12 +17,12 @@ namespace LMS.Authorization.Users
     /// <summary>
     /// 用户服务实现
     /// </summary>
-    [AbpAuthorize(UserPermissions.User)]
     public class UserAppService : LmsAppServiceBase, IUserAppService
     {
         private readonly IRepository<User, Guid> _userRepository;
-
+        private readonly IPermissionManager _permissionManager;
         private readonly LmsUserManager _userManager;
+
         /// <summary>
         /// 构造方法
         /// </summary>
@@ -33,6 +33,48 @@ namespace LMS.Authorization.Users
         }
 
         #region 用户管理
+
+        /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ListResultDto<UserListDto>> GetUsersAsync()
+        {
+            var users = await _userRepository.GetAllListAsync();
+
+            return new ListResultDto<UserListDto>(
+                users.MapTo<List<UserListDto>>()
+            );
+        }
+
+        /// <summary>
+        /// 获取所有用户
+        /// </summary>
+        /// <returns></returns>
+        public ListResultDto<UserListDto> GetUsers()
+        {
+            if (!PermissionChecker.IsGranted(UserPermissions.User))
+            {
+                throw new AbpAuthorizationException("You are not authorized to create user!");
+            }
+
+            var users = _userRepository.GetAll();
+
+            return new ListResultDto<UserListDto>(
+                users.MapTo<List<UserListDto>>()
+            );
+        }
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<UserListDto>> GetUserList()
+        {
+            var users = await _userRepository.GetAllListAsync();
+
+            return users.MapTo<List<UserListDto>>();
+        }
 
         /// <summary>
         /// 根据查询条件获取用户分页列表

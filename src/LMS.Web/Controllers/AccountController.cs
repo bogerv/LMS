@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using Abp.Domain.Uow;
+﻿using Abp.Domain.Uow;
 using Abp.Localization;
 using Abp.Runtime.Caching;
 using Abp.Web.Models;
@@ -9,11 +8,8 @@ using LMS.Authorization.Users;
 using LMS.Web.Models.Account;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace LMS.Web.Controllers
 {
@@ -99,7 +95,7 @@ namespace LMS.Web.Controllers
         {
             if (string.IsNullOrEmpty(returnUrl) || !Url.IsLocalUrl(returnUrl))
             {
-                return Url.Action("index", "UserManage", new { area = "Mpa" });
+                return Url.Action("index", "User", new { area = "Mpa" });
             }
 
             return returnUrl;

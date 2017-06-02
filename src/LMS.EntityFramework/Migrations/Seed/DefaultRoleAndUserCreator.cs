@@ -3,11 +3,17 @@ using System.Linq;
 using Abp.Authorization;
 using Abp.MultiTenancy;
 using LMS.Authorization.Permissions;
+using LMS.Authorization.Permissions.Authorization;
 using LMS.Authorization.Roles;
+using LMS.Authorization.Roles.Authorization;
 using LMS.Authorization.Users;
 using LMS.Authorization.Users.Authorization;
 using LMS.EntityFramework;
+using LMS.Posts.Authorization;
+using LMS.RPT.Projects.Authorization;
+using LMS.RPT.Tasks.Authorization;
 using LMS.Teams;
+using LMS.Teams.Authorization;
 using Microsoft.AspNet.Identity;
 
 namespace LMS.Migrations.Seed
@@ -36,7 +42,7 @@ namespace LMS.Migrations.Seed
 
                 // todo: 增加User以外所有
                 var permissions = PermissionFinder
-                    .GetAllPermissions(new UserAuthorizationProvider())
+                    .GetAllPermissions(new UserAuthorizationProvider(), new PermissionAuthorizationProvider(),new PostAuthorizationProvider(),new ProjectAuthorizationProvider(),new TaskAuthorizationProvider(),new RoleAuthorizationProvider(),new TeamAuthorizationProvider())
                     .ToList();
 
                 foreach (var permission in permissions)

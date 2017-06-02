@@ -1,7 +1,10 @@
 ﻿using Abp.Application.Navigation;
 using Abp.Localization;
 using LMS.Authorization;
+using LMS.Authorization.Roles.Authorization;
 using LMS.Authorization.Users.Authorization;
+using LMS.Posts.Authorization;
+using LMS.Teams.Authorization;
 
 namespace LMS.Web.Areas.Mpa.Navigation
 {
@@ -25,7 +28,7 @@ namespace LMS.Web.Areas.Mpa.Navigation
                 L(PageNames.Common.Users),
                 "fa fa-users",
                 NavigationUrls.Users,
-                requiredPermissionName: LmsPermissions.Pages_Administration_Users
+                requiredPermissionName: UserPermissions.User
             );
 
             var role = new MenuItemDefinition(
@@ -33,20 +36,22 @@ namespace LMS.Web.Areas.Mpa.Navigation
                 L(PageNames.Common.Roles),
                 "fa fa-users",
                 NavigationUrls.Roles,
-                requiredPermissionName: LmsPermissions.Pages_Administration_Roles
+                requiredPermissionName: RolePermissions.Role
             );
             var job = new MenuItemDefinition(
                 PageNames.Common.Jobs,
                 L(PageNames.Common.Jobs),
                 "fa fa-support",
-                NavigationUrls.Jobs
+                NavigationUrls.Jobs,
+                requiredPermissionName: PostPermissions.Post
             );
 
             var team = new MenuItemDefinition(
                 PageNames.Common.Teams,
                 L(PageNames.Common.Teams),
                 "fa fa-user-circle",
-                NavigationUrls.Teams
+                NavigationUrls.Teams,
+                requiredPermissionName: TeamPermissions.Team
             );
 
             menu.AddItem(

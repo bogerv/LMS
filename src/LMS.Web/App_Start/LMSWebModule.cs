@@ -5,13 +5,14 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using Abp.Localization;
 using Abp.Localization.Dictionaries;
-//using Abp.Localization.Dictionaries.Xml;
 using Abp.Modules;
 using Abp.Web.Mvc;
 using LMS.Web.Areas.Mpa.Navigation;
 using Castle.MicroKernel.Registration;
 using Microsoft.Owin.Security;
 using Abp.Localization.Dictionaries.Json;
+using LMS.Api;
+using LMS.Web.Bundules;
 
 namespace LMS.Web
 {
@@ -68,10 +69,19 @@ namespace LMS.Web
             //    Component.For<IRoleStore<Role, Guid>>().ImplementedBy<LmsRoleStore>()
             //    );
 
+            //Areas
             AreaRegistration.RegisterAllAreas();
+
+            //Routes
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+
+            // Bundles
+            BundleTable.Bundles.IgnoreList.Clear();
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            CommonBundleConfig.RegisterBundles(BundleTable.Bundles);
+            AdminBundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

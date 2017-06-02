@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Abp.WebApi.Controllers;
 
 namespace LMS
 {
-    public class AccountController : ApiController
+    public class AccountController : AbpApiController
     {
     }
 }

@@ -27,6 +27,7 @@ namespace LMS.WebApi
             WebApiConfig.Register(config);
             app.UseWebApi(config);
 
+            app.MapSignalR();
         }
     }
 }
